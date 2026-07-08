@@ -8,6 +8,18 @@ describe("Transferencias", () => {
     cy.contains("button", "Entrar").click();
  })
 
-it("Deve transferir quando informo dados e valor validos", () => {});
+it("Deve transferir quando informo dados e valor validos", () => {
+   cy.get('label[for="conta-origem"]').parent().as('campo-conta-origem')
+   cy.get('@campo-conta-origem').click()
+   cy.get('@campo-conta-origem').contains('Maria Oliveira').click()
 
-}) 
+   cy.get('label[for="conta-destino"]').parent().as('campo-conta-destino')
+   cy.get('@campo-conta-destino').click()
+   cy.get('@campo-conta-destino').contains('João da Silva').click()
+
+   cy.get('#valor').click().type('99')
+   cy.contains('button','Transferir').click()
+   cy.get('.toast').should('have.text','Transferência realizada!')
+})
+
+})
